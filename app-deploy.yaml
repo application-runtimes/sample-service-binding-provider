@@ -25,6 +25,9 @@ spec:
       prometheus.io/scrape: "true"
     port: 9080
     type: NodePort
+    provides:
+      category: openapi
+      context: /service
   stack: java-microprofile
   version: 1.0.0
 status: {}
