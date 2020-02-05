@@ -1,0 +1,33 @@
+apiVersion: appsody.dev/v1beta1
+kind: RuntimeApplication
+metadata:
+  name: microservice-a
+spec:
+  applicationImage: appruntime/samples:service-binding-provider
+  createKnativeService: false
+  expose: true
+  livenessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/live
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  readinessProbe:
+    failureThreshold: 12
+    httpGet:
+      path: /health/ready
+      port: 9080
+    initialDelaySeconds: 5
+    periodSeconds: 2
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+    port: 9080
+    type: NodePort
+    provides:
+      category: openapi
+      context: /service
+  stack: java-microprofile
+  version: 1.0.0
+status: {}
